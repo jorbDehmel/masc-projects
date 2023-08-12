@@ -7,7 +7,7 @@ from time_driver import *
 
 if __name__ == '__main__':
     window = TimeApplication()
-    window.start_screen()
+    window.first_screen()
     window.root.mainloop()
 
     sys.exit(0)
