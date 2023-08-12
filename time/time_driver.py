@@ -7,6 +7,8 @@
 import tkinter as tk
 from tkinter import ttk
 
+from ttkthemes import ThemedTk
+
 import time
 import sys
 
@@ -14,16 +16,14 @@ import sys
 class TimeApplication:
     def __init__(self) -> None:
         # Create members, but do not start window yet
-        self.root: tk.Tk = tk.Tk()
+        self.root: ThemedTk = ThemedTk(theme="adapta")
         
         # Activate fullscreen mode
         self.root.attributes('-fullscreen', True)
 
         # Add frame
         self.frame: tk.Frame = tk.Frame(self.root)
-        
-        # Set frame alignment mode
-        self.frame.grid()
+        self.frame.pack(padx=20, pady=200)
 
         # Set up escape
         self.root.bind("<Escape>", func=self.close)
@@ -104,40 +104,40 @@ class TimeApplication:
             self.clear()
 
             # Title
-            tk.Label(self.frame, text="What Time is It?", font=("Arial", 25)).grid()
+            tk.Label(self.frame, text="What Time is It?", font=("Arial", 25)).pack()
             tk.Label(self.frame,
                 text="How do computers know what time it is?\n",
-                font=("Arial", 16)).grid()
+                font=("Arial", 16)).pack()
             
             tk.Label(self.frame,
                 text="Here's what a computer sees:",
-                font=("Arial", 12)).grid()
+                font=("Arial", 12)).pack()
 
             # Binary label
             self.bin_label = tk.Label(self.frame, font=("Monospace", 12))
-            self.bin_label.grid()
+            self.bin_label.pack()
 
             tk.Label(self.frame,
                 text="\nThat's called binary! In our numbers, that's:",
-                font=("Arial", 12)).grid()
+                font=("Arial", 12)).pack()
 
             # Raw UNIX timecode label
             self.raw_time_label = tk.Label(self.frame,
                                         font=("Monospace", 12))
-            self.raw_time_label.grid()
+            self.raw_time_label.pack()
 
             tk.Label(self.frame,
                 text="\nThat's the number of seconds since 1970.\nComputers can turn this into a date, like this one:",
-                font=("Arial", 12)).grid()
+                font=("Arial", 12)).pack()
 
             # ctime label (human readable)
             self.c_time_label = tk.Label(self.frame,
                                          font=("Monospace", 12))
-            self.c_time_label.grid()
+            self.c_time_label.pack()
 
             tk.Label(self.frame,
                 text="\nMove the slider to see time like a computer!",
-                font=("Arial", 12)).grid()
+                font=("Arial", 12)).pack()
 
             # Slider for interactivity
             self.slider = ttk.Scale(
@@ -149,10 +149,10 @@ class TimeApplication:
                 command=self.on_slider_change,
                 length=500
             )
-            self.slider.grid(columnspan=3)
+            self.slider.pack()
 
             button_holder: tk.Frame = tk.Frame(self.frame)
-            button_holder.grid()
+            button_holder.pack()
 
             # Now button
             tk.Button(button_holder, text="Now", command=self.now).grid(column=0, row=0)
