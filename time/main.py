@@ -30,6 +30,8 @@ This program and all associated source code files
 are FOSS under the GPLv3, a copy of which should
 be attached here. Designed for public educational
 use.
+
+All art belongs to Jordan Dehmel.
 '''
 
 from time_driver import *
@@ -40,5 +42,5 @@ if __name__ == '__main__':
         window.first_screen()
         window.root.mainloop()
     except:
-        print("Unknown failure occured. Restarting program...")
+        print("Unknown failure occured.")
 

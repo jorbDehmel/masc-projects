@@ -8,6 +8,7 @@ import tkinter as tk
 from tkinter import ttk
 
 from ttkthemes import ThemedTk
+from PIL import Image, ImageTk
 
 import time
 
@@ -65,13 +66,35 @@ class TimeApplication:
         self.root: ThemedTk = ThemedTk(theme="breeze")
         
         # Activate fullscreen mode
-        self.root.attributes('-fullscreen', True)
+        self.root.attributes("-fullscreen", True)
 
+        # Add background image via label
         try:
-            # Add background image via label
-            self.photo = tk.PhotoImage(file='images/bg.png')
+            # Get screen dimensions
+            self.w, self.h = self.root.winfo_screenwidth(), self.root.winfo_screenheight()
+
+            # Load unscaled image
+            temp = Image.open("images/bg.png")
+
+            # Calculate scaling factor as greatest of h and w scale factors
+            scale: float = 1.0
+
+            h_scale: float = (self.h + 10) / temp.height
+            w_scale: float = (self.w + 10) / temp.width
+
+            if h_scale > w_scale:
+                scale = h_scale
+            else:
+                scale = w_scale
+
+            # Rescale
+            temp = temp.resize(size=(int(temp.width * scale), int(temp.height * scale)))
+            self.photo = ImageTk.PhotoImage(temp)
+
+            # Set scaled image as background
             self.bg_image: ttk.Label = ttk.Label(self.root, image=self.photo)
             self.bg_image.place(x=0, y=0, relheight=1.0, relwidth=1.0)
+
         except:
             print("Failed to open background image")
             self.photo = None
@@ -294,10 +317,10 @@ class TimeApplication:
             ttk.Button(button_holder, text="Max", command=self.max).grid(column=4, row=0)
 
             ttk.Label(self.frame, text="\nWhat happens after max?", font=("Arial", 12)).pack()
-            ttk.Button(self.frame, text="Click here to find out", command=self.second_screen).pack()
+            ttk.Button(self.frame, text="Page 2", command=self.second_screen).pack()
 
             ttk.Label(self.frame, text="\nWhat has improved?", font=("Arial", 12)).pack()
-            ttk.Button(self.frame, text="Click here to find out", command=self.third_screen).pack()
+            ttk.Button(self.frame, text="Page 3", command=self.third_screen).pack()
 
             # Update status so we don't do this every time
             self.current_screen = "first"
@@ -359,12 +382,13 @@ class TimeApplication:
             self.c_time_label.pack()
 
             ttk.Label(self.frame, text="\nThis will make some computers think 2038 is 1901.", font=("Arial", 12)).pack()
+            ttk.Label(self.frame, text="\nBut don't worry! We have a solution!", font=("Arial", 12)).pack()
 
-            ttk.Label(self.frame, text="\n\nBut don't worry! We have a solution!", font=("Arial", 12)).pack()
-            ttk.Button(self.frame, text="Click here to find out", command=self.third_screen).pack()
+            ttk.Label(self.frame, text="\nRestart:", font=("Arial", 12)).pack()
+            ttk.Button(self.frame, text="Page 1", command=self.first_screen).pack()
 
-            ttk.Label(self.frame, text="\nOr you can go back to our old clock.", font=("Arial", 12)).pack()
-            ttk.Button(self.frame, text="Click here to go back", command=self.first_screen).pack()
+            ttk.Label(self.frame, text="\nNext page:", font=("Arial", 12)).pack()
+            ttk.Button(self.frame, text="Page 3", command=self.third_screen).pack()
 
             self.current_screen = "second"
 
@@ -461,11 +485,11 @@ class TimeApplication:
             # Max button
             ttk.Button(button_holder, text="Max", command=self.max).grid(column=4, row=0)
 
-            ttk.Label(self.frame, text="\n\nWhat came first?", font=("Arial", 12)).pack()
-            ttk.Button(self.frame, text="Click here to find out", command=self.first_screen).pack()
+            ttk.Label(self.frame, text="\n\nRestart:", font=("Arial", 12)).pack()
+            ttk.Button(self.frame, text="Page 1", command=self.first_screen).pack()
 
-            ttk.Label(self.frame, text="\nWhat's overflow?", font=("Arial", 12)).pack()
-            ttk.Button(self.frame, text="Click here to find out", command=self.second_screen).pack()
+            ttk.Label(self.frame, text="\nBack:", font=("Arial", 12)).pack()
+            ttk.Button(self.frame, text="Page 2", command=self.second_screen).pack()
 
             self.current_screen = "third"
 
