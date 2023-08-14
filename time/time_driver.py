@@ -158,8 +158,8 @@ class TimeApplication:
             # Update screen
             if self.current_screen == "first":
                 self.first_screen()
-            elif self.current_screen == "third":
-                self.third_screen()
+            elif self.current_screen == "fifth":
+                self.fifth_screen()
 
         return
     
@@ -177,12 +177,12 @@ class TimeApplication:
             
             self.first_screen()
 
-        elif self.current_screen == "third":
+        elif self.current_screen == "fifth":
             self.slider_var = -pow(2, 63)
             self.slider.set(self.slider_var)
             self.time_mode = "slider"
             
-            self.third_screen()
+            self.fifth_screen()
     
         return
     
@@ -198,12 +198,12 @@ class TimeApplication:
 
             self.first_screen()
 
-        elif self.current_screen == "third":
+        elif self.current_screen == "fifth":
             self.slider_var = pow(2, 63) - 1
             self.slider.set(self.slider_var)
             self.time_mode = "slider"
 
-            self.third_screen()
+            self.fifth_screen()
     
         pass
 
@@ -217,9 +217,9 @@ class TimeApplication:
             self.time_mode = "slider"
             self.first_screen()
 
-        elif self.current_screen == "third":
+        elif self.current_screen == "fifth":
             self.time_mode = "slider"
-            self.third_screen()
+            self.fifth_screen()
 
         return
 
@@ -235,10 +235,10 @@ class TimeApplication:
 
             self.first_screen()
 
-        elif self.current_screen == "third":
+        elif self.current_screen == "fifth":
             self.time_mode = "now"
 
-            self.third_screen()
+            self.fifth_screen()
         
         return
 
@@ -259,29 +259,28 @@ class TimeApplication:
                 text="How do computers know what time it is?\n",
                 font=("Arial", 16)).pack()
             ttk.Label(self.frame,
-                text="Here's what a computer sees:",
+                text="Here's what a computer sees:\n",
                 font=("Arial", 12)).pack()
 
             # Binary label
-            self.bin_label = ttk.Label(self.frame, font=("Monospace", 12))
+            self.bin_label = ttk.Label(self.frame, font=("Monospace", 16))
             self.bin_label.pack()
 
             ttk.Label(self.frame,
-                text="\nThat's called binary! In our numbers, that's:",
+                text="\nThat's called binary! In our numbers, that's:\n",
                 font=("Arial", 12)).pack()
 
             # Raw UNIX timecode label
             self.raw_time_label = ttk.Label(self.frame,
-                                        font=("Monospace", 12))
+                                        font=("Monospace", 16))
             self.raw_time_label.pack()
 
-            ttk.Label(self.frame,
-                text="\nThat's the number of seconds since 1970.\nComputers can turn this into a date, like this one:",
-                font=("Arial", 12)).pack()
+            ttk.Label(self.frame, text="\nThat's the number of seconds since 1970.", font=("Arial", 12)).pack()
+            ttk.Label(self.frame, text="\nComputers can turn this into a date, like this one:\n", font=("Arial", 12)).pack()
 
             # ctime label (human readable)
             self.c_time_label = ttk.Label(self.frame,
-                                         font=("Monospace", 12))
+                                         font=("Monospace", 16))
             self.c_time_label.pack()
 
             ttk.Label(self.frame,
@@ -316,11 +315,8 @@ class TimeApplication:
             # Max button
             ttk.Button(button_holder, text="Max", command=self.max).grid(column=4, row=0)
 
-            ttk.Label(self.frame, text="\nWhat happens after max?", font=("Arial", 12)).pack()
-            ttk.Button(self.frame, text="Page 2", command=self.second_screen).pack()
-
-            ttk.Label(self.frame, text="\nWhat has improved?", font=("Arial", 12)).pack()
-            ttk.Button(self.frame, text="Page 3", command=self.third_screen).pack()
+            ttk.Label(self.frame).pack()
+            ttk.Button(self.frame, text="Next", command=self.second_screen).pack()
 
             # Update status so we don't do this every time
             self.current_screen = "first"
@@ -345,8 +341,6 @@ class TimeApplication:
 
         return
     
-    # Secondary screen; Explains what integer overflow is
-    # and demonstrates it occuring in 2038.
     def second_screen(self) -> None:
         if self.current_screen != "second":
             if self.outgoing != "":
@@ -354,9 +348,101 @@ class TimeApplication:
             
             self.clear()
 
+            ttk.Label(self.frame, text="What is binary?", font=("Arial", 25)).pack()
+            ttk.Label(self.frame, text="How can computers count with just 0 and 1?\n", font=("Arial", 16)).pack()
+
+            # ttk.Label(self.frame, text="", font=("Arial", 12)).pack()
+
+            ttk.Label(self.frame, text="In real life, we have 10 numbers: 0, 1, 2, 3, 4, 5, 6, 7, 8, and 9.", font=("Arial", 12)).pack()
+            ttk.Label(self.frame, text="But computers only have 0 and 1. This way of counting is called binary.", font=("Arial", 12)).pack()
+
+            ttk.Label(self.frame, text="\nWe use multiple numbers to make bigger ones (like 12, which is made of a 1 and a 2).", font=("Arial", 12)).pack()
+            ttk.Label(self.frame, text="Computers combine their numbers the same way! A computer would say '10' for 2, or '1100' for 12.", font=("Arial", 12)).pack()
+            
+            ttk.Label(self.frame, text="\nYou could write a number as a math problem like this:", font=("Arial", 12)).pack()
+
+            ttk.Label(self.frame, text="\n2,345:", font=("Monospace", 12)).pack()
+
+            ttk.Label(self.frame,
+                      text=
+                        '   5 * 1     |   5 * 1                | The one\'s place      \n'
+                        + '   4 * 10    |   4 * 1 * 10           | The ten\'s place      \n'
+                        + '   3 * 100   |   3 * 1 * 10 * 10      | The hundred\'s place  \n'
+                        + ' + 2 * 1,000 | + 2 * 1 * 10 * 10 * 10 | The thousand\'s place \n'
+                        + '-------------|------------------------|----------------------\n'
+                        + '   2,345     |   2,345                |                      ',
+                      font=("Monospace", 12)
+                      ).pack()
+            
+            ttk.Label(self.frame, text="\nFor us, each digit is ten times larger than the last. In binary, each digit is only two times larger!", font=("Arial, 12")).pack()
+            
+            ttk.Label(self.frame, text="\n0111:", font=("Monospace", 12)).pack()
+
+            
+            ttk.Label(self.frame,
+                      text=
+                        '   1 * 1 |   1 * 1             | The one\'s place   \n'
+                        + '   1 * 2 |   1 * 1 * 2         | The two\'s place   \n'
+                        + '   1 * 4 |   1 * 1 * 2 * 2     | The four\'s place  \n'
+                        + ' + 0 * 8 | + 0 * 1 * 2 * 2 * 2 | The eight\'s place \n'
+                        + '---------|---------------------|-------------------\n'
+                        + '   7     |   7                 |                   ',
+                      font=("Monospace", 12)
+                      ).pack()
+
+            ttk.Label(self.frame, text="\nNow you know how to count like a computer!\n", font=("Arial", 12)).pack()
+            ttk.Button(self.frame, text="Next", command=self.third_screen).pack()
+
+            self.current_screen = "second"
+
+        return
+    
+    def third_screen(self) -> None:
+        if self.current_screen != "third":
+            if self.outgoing != "":
+                self.root.after_cancel(self.outgoing)
+            
+            self.clear()
+
+            ttk.Label(self.frame, text="Here are the first few binary numbers:\n", font=("Arial", 16)).pack()
+
+            ttk.Label(self.frame, text="0000 0000 | 0       0001 0000 | 16\n" +
+                                       "0000 0001 | 1       0001 0001 | 17\n" +
+                                       "0000 0010 | 2       0001 0010 | 18\n" +
+                                       "0000 0011 | 3       0001 0011 | 19\n" +
+                                       "0000 0100 | 4       0001 0100 | 20\n" +
+                                       "0000 0101 | 5       0001 0101 | 21\n" +
+                                       "0000 0110 | 6       0001 0110 | 22\n" +
+                                       "0000 0111 | 7       0001 0111 | 23\n" +
+                                       "0000 1000 | 8       0001 1000 | 24\n" +
+                                       "0000 1001 | 9       0001 1001 | 25\n" +
+                                       "0000 1010 | 10      0001 1010 | 26\n" +
+                                       "0000 1011 | 11      0001 1011 | 27\n" +
+                                       "0000 1100 | 12      0001 1100 | 28\n" +
+                                       "0000 1101 | 13      0001 1101 | 29\n" +
+                                       "0000 1110 | 14      0001 1110 | 30\n" +
+                                       "0000 1111 | 15      0001 1111 | 31\n",
+                     font=("Monospace", 16)).pack()
+            
+            ttk.Button(self.frame, text="Next", command=self.fourth_screen).pack()
+
+            self.current_screen = "third"
+        
+        return
+
+    # Secondary screen; Explains what integer overflow is
+    # and demonstrates it occuring in 2038.
+    def fourth_screen(self) -> None:
+        if self.current_screen != "fourth":
+            if self.outgoing != "":
+                self.root.after_cancel(self.outgoing)
+            
+            self.clear()
+
             ttk.Label(self.frame, text="The 2038 Problem", font=("Arial", 25)).pack()
             ttk.Label(self.frame, text="How could 99 + 1 = 0?", font=("Arial", 16)).pack()
-            ttk.Label(self.frame, text="What is 99 + 1? 100! But what if we only have two digits to write the answer?\n", font=("Arial", 12)).pack()
+            
+            ttk.Label(self.frame, text="\nWhat is 99 + 1? 100! But what if we only have two digits to write the answer?\n", font=("Arial", 12)).pack()
             ttk.Label(self.frame, text="We would have to write 99 + 1 = 00!\n", font=("Arial", 12)).pack()
             ttk.Label(self.frame, text="This same thing happens to computers! Here's what a computer sees:", font=("Arial", 12)).pack()
 
@@ -368,29 +454,26 @@ class TimeApplication:
             ttk.Label(self.frame, text="\nThis is called overflow, and it can be a problem for computer time!\n", font=("Arial", 12)).pack()
 
             # Binary label
-            self.bin_label = ttk.Label(self.frame, font=("Monospace", 12))
+            self.bin_label = ttk.Label(self.frame, font=("Monospace", 16))
             self.bin_label.pack()
 
             # Raw UNIX timecode label
             self.raw_time_label = ttk.Label(self.frame,
-                                        font=("Monospace", 12))
+                                        font=("Monospace", 16))
             self.raw_time_label.pack()
 
             # ctime label (human readable)
             self.c_time_label = ttk.Label(self.frame,
-                                         font=("Monospace", 12))
+                                         font=("Monospace", 16))
             self.c_time_label.pack()
 
             ttk.Label(self.frame, text="\nThis will make some computers think 2038 is 1901.", font=("Arial", 12)).pack()
             ttk.Label(self.frame, text="\nBut don't worry! We have a solution!", font=("Arial", 12)).pack()
 
-            ttk.Label(self.frame, text="\nRestart:", font=("Arial", 12)).pack()
-            ttk.Button(self.frame, text="Page 1", command=self.first_screen).pack()
+            ttk.Label(self.frame).pack()
+            ttk.Button(self.frame, text="Next", command=self.fifth_screen).pack()
 
-            ttk.Label(self.frame, text="\nNext page:", font=("Arial", 12)).pack()
-            ttk.Button(self.frame, text="Page 3", command=self.third_screen).pack()
-
-            self.current_screen = "second"
+            self.current_screen = "fourth"
 
         self.cur_time = int(time.time() % 20) + overflow_constant
         if self.cur_time >= pow(2, 31):
@@ -405,13 +488,13 @@ class TimeApplication:
         self.c_time_label.config(text=safe_ctime(self.cur_time))
 
         # After 1 second, call this function again
-        self.outgoing = self.root.after(1000, self.second_screen)
+        self.outgoing = self.root.after(1000, self.fourth_screen)
 
         return
 
     # Demonstrates the "new" 64-bit integer representation of computer time
-    def third_screen(self) -> None:
-        if self.current_screen != "third":
+    def fifth_screen(self) -> None:
+        if self.current_screen != "fifth":
             if self.outgoing != "":
                 self.root.after_cancel(self.outgoing)
 
@@ -424,32 +507,32 @@ class TimeApplication:
                 text="Nowadays, we use twice as much space to store the time!\n",
                 font=("Arial", 16)).pack()
             ttk.Label(self.frame,
-                text="Here's what a computer sees now:",
+                text="Here's what a computer sees now:\n",
                 font=("Arial", 12)).pack()
 
             # Binary label
-            self.bin_label = ttk.Label(self.frame, font=("Monospace", 12))
+            self.bin_label = ttk.Label(self.frame, font=("Monospace", 16))
             self.bin_label.pack()
 
             ttk.Label(self.frame,
-                text="\nIn our numbers, that's:",
+                text="\nIn our numbers, that's:\n",
                 font=("Arial", 12)).pack()
 
             # Raw UNIX timecode label
             self.raw_time_label = ttk.Label(self.frame,
-                                        font=("Monospace", 12))
+                                        font=("Monospace", 16))
             self.raw_time_label.pack()
 
             ttk.Label(self.frame,
                 text="\nThis can store 4,294,967,296 times as much!\n",
                 font=("Arial", 12)).pack()
             ttk.Label(self.frame,
-                text="This number is about:",
+                text="This number is about:\n",
                 font=("Arial", 12)).pack()
 
             # ctime label (human readable)
             self.c_time_label = ttk.Label(self.frame,
-                                         font=("Monospace", 12))
+                                         font=("Monospace", 16))
             self.c_time_label.pack()
 
             ttk.Label(self.frame,
@@ -485,13 +568,10 @@ class TimeApplication:
             # Max button
             ttk.Button(button_holder, text="Max", command=self.max).grid(column=4, row=0)
 
-            ttk.Label(self.frame, text="\n\nRestart:", font=("Arial", 12)).pack()
-            ttk.Button(self.frame, text="Page 1", command=self.first_screen).pack()
+            ttk.Label(self.frame).pack()
+            ttk.Button(self.frame, text="Restart", command=self.first_screen).pack()
 
-            ttk.Label(self.frame, text="\nBack:", font=("Arial", 12)).pack()
-            ttk.Button(self.frame, text="Page 2", command=self.second_screen).pack()
-
-            self.current_screen = "third"
+            self.current_screen = "fifth"
 
         # If in "now" mode, set current time to actual time.
         # Otherwise, set it to whatever the slider is set to.
@@ -509,7 +589,7 @@ class TimeApplication:
         self.c_time_label.config(text=safe_ctime(self.cur_time))
 
         # After 1 second, call this function again
-        self.outgoing = self.root.after(1000, self.third_screen)
+        self.outgoing = self.root.after(1000, self.fifth_screen)
 
         return
 
