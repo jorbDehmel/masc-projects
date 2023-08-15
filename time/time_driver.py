@@ -100,9 +100,18 @@ class TimeApplication:
             self.photo = None
             self.bg_image = None
 
+        # These images are mandatory to load, unlike the background
+        temp = Image.open("images/next_arrow.png")
+        temp = temp.resize(size=(64, 32))
+        self.next_arrow_photo = ImageTk.PhotoImage(temp)
+
+        temp = Image.open("images/restart_arrow.png")
+        temp = temp.resize(size=(64, 64))
+        self.prev_arrow_photo = ImageTk.PhotoImage(temp)
+
         # Add frame
         self.frame: ttk.Frame = ttk.Frame(self.root)
-        self.frame.pack(padx=20, pady=200)
+        self.frame.pack(padx=20, pady=190)
 
         # Set up escape
         self.root.bind("<Escape>", func=self.close)
@@ -315,8 +324,7 @@ class TimeApplication:
             # Max button
             ttk.Button(button_holder, text="Max", command=self.max).grid(column=4, row=0)
 
-            ttk.Label(self.frame).pack()
-            ttk.Button(self.frame, text="Next", command=self.second_screen).pack()
+            ttk.Button(self.frame, command=self.second_screen, image=self.next_arrow_photo).pack()
 
             # Update status so we don't do this every time
             self.current_screen = "first"
@@ -391,7 +399,8 @@ class TimeApplication:
                       ).pack()
 
             ttk.Label(self.frame, text="\nNow you know how to count like a computer!\n", font=("Arial", 12)).pack()
-            ttk.Button(self.frame, text="Next", command=self.third_screen).pack()
+            
+            ttk.Button(self.frame, image=self.next_arrow_photo, command=self.third_screen).pack()
 
             self.current_screen = "second"
 
@@ -424,7 +433,7 @@ class TimeApplication:
                                        "0000 1111 | 15      0001 1111 | 31\n",
                      font=("Monospace", 16)).pack()
             
-            ttk.Button(self.frame, text="Next", command=self.fourth_screen).pack()
+            ttk.Button(self.frame, image=self.next_arrow_photo, command=self.fourth_screen).pack()
 
             self.current_screen = "third"
         
@@ -470,8 +479,7 @@ class TimeApplication:
             ttk.Label(self.frame, text="\nThis will make some computers think 2038 is 1901.", font=("Arial", 12)).pack()
             ttk.Label(self.frame, text="\nBut don't worry! We have a solution!", font=("Arial", 12)).pack()
 
-            ttk.Label(self.frame).pack()
-            ttk.Button(self.frame, text="Next", command=self.fifth_screen).pack()
+            ttk.Button(self.frame, image=self.next_arrow_photo, command=self.fifth_screen).pack()
 
             self.current_screen = "fourth"
 
@@ -568,8 +576,7 @@ class TimeApplication:
             # Max button
             ttk.Button(button_holder, text="Max", command=self.max).grid(column=4, row=0)
 
-            ttk.Label(self.frame).pack()
-            ttk.Button(self.frame, text="Restart", command=self.first_screen).pack()
+            ttk.Button(self.frame, image=self.prev_arrow_photo, command=self.first_screen).pack()
 
             self.current_screen = "fifth"
 
