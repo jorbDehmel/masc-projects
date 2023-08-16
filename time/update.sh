@@ -10,19 +10,25 @@ echo "jdehmel@outlook.com, 2023"
 # Check for wifi
 if ! ping google.com -c 1 > /dev/null ; then echo "ERROR: No internet connection!" ; fi
 
+# Pull from git
 echo "Checking for project updates..."
 git pull > log.txt
 
+# Make main.py and this update script executable
+# so you can just double click on them if needed
 echo "Fixing permissions..."
 chmod +x ./main.py >> log.txt
 chmod +x ./update.sh >> log.txt
 
+# Ensure all Python dependancies are met on the system level
 echo "Ensuring Python is up to date (this may take a while)..."
 sudo apt-get install -y python3 python-tk python3-pil.imagetk
 
+# Ensure all Python dependancies are met on the PIP level
 echo "Installing Python packages (this may take a while)..."
 sudo pip install ttkthemes pillow
 
+# Set up crontab
 echo "Making app start on system powerup..."
 
 # Copy old crontab
