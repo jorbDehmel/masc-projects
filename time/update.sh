@@ -6,15 +6,20 @@
 
 echo "This script updates the time exhibit when run."
 
+# Check for wifi
+if ! ping google.com -c 1 > /dev/null ; then echo "ERROR: No internet connection!" ; exit 1 ; fi
+
 echo "Checking for project updates..."
-git pull > /dev/null
+git pull > log.txt
 
 echo "Fixing permissions..."
-chmod +x ./main.py > /dev/null
-chmod +x ./update.sh > /dev/null
+chmod +x ./main.py >> log.txt
+chmod +x ./update.sh >> log.txt
 
-echo "Ensuring Python is up to date..."
-sudo apt-get install python3 python-tk python3-pil.imagetk > /dev/null
+echo "Ensuring Python is up to date (this may take a while)..."
+sudo apt-get install python3 python-tk python3-pil.imagetk
+
+echo "Installing Python packages (this may take a while)..."
 sudo pip install tkinter ttkthemes pillow
 
 echo "Done."
