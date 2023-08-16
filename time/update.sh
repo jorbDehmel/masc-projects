@@ -17,9 +17,9 @@ chmod +x ./main.py >> log.txt
 chmod +x ./update.sh >> log.txt
 
 echo "Ensuring Python is up to date (this may take a while)..."
-sudo apt-get install python3 python-tk python3-pil.imagetk
+sudo apt-get install -y python3 python-tk python3-pil.imagetk
 
 echo "Installing Python packages (this may take a while)..."
-sudo pip install tkinter ttkthemes pillow
+sudo pip install ttkthemes pillow
 
 echo "Done."
