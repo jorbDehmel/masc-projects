@@ -28,18 +28,4 @@ sudo apt-get install -y python3 python-tk python3-pil.imagetk
 echo "Installing Python packages (this may take a while)..."
 sudo pip install ttkthemes pillow
 
-# Set up crontab
-echo "Making app start on system powerup..."
-
-# Copy old crontab
-touch newcron
-if crontab -l ; then crontab -l > newcron ; fi
-
-# Append new command to it
-echo "@reboot python3 "$(pwd)"/main.py" >> newcron
-
-# Put new crontab into place
-crontab newcron
-rm newcron
-
 echo "Done."
