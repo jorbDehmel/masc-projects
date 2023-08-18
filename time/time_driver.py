@@ -6,6 +6,7 @@
 
 import tkinter as tk
 from tkinter import ttk
+from tkinter import font
 
 from ttkthemes import ThemedTk
 from PIL import Image, ImageTk
@@ -71,6 +72,15 @@ class TimeApplication:
     def __init__(self) -> None:
         # Create members, but do not start window yet
         self.root: ThemedTk = ThemedTk(theme="breeze")
+
+        temp = list(font.families())
+        temp.sort()
+
+        if "Adelle" not in temp or "Amsi Pro Narw" not in temp:
+            print("Error: Font(s) not present! Installed fonts:")
+
+            for item in temp:
+                print("'" + item + "'")
 
         # Activate fullscreen mode
         self.root.attributes("-fullscreen", True)
@@ -272,13 +282,14 @@ class TimeApplication:
 
             # Title, subtitle, subsubtitle
             ttk.Label(self.frame, text="What Time is It?",
-                      font=("Arial", 25)).pack()
+                      font=("Amsi Pro Narw", 25)).pack()
             ttk.Label(self.frame,
                       text="How do computers know what time it is?\n",
-                      font=("Arial", 16)).pack()
+                      font=("Amsi Pro Narw", 16)).pack()
+
             ttk.Label(self.frame,
                       text="Here's what a computer sees:\n",
-                      font=("Arial", 12)).pack()
+                      font=("Adelle", 12)).pack()
 
             # Binary label
             self.bin_label = ttk.Label(self.frame, font=("Monospace", 16))
@@ -286,7 +297,7 @@ class TimeApplication:
 
             ttk.Label(self.frame,
                       text="\nThat's called binary! In our numbers, that's:\n",
-                      font=("Arial", 12)).pack()
+                      font=("Adelle", 12)).pack()
 
             # Raw UNIX timecode label
             self.raw_time_label = ttk.Label(self.frame,
@@ -294,9 +305,9 @@ class TimeApplication:
             self.raw_time_label.pack()
 
             ttk.Label(self.frame, text="\nThat's the number of seconds since 1970.", font=(
-                "Arial", 12)).pack()
+                "Adelle", 12)).pack()
             ttk.Label(self.frame, text="\nComputers can turn this into a date, like this one:\n", font=(
-                "Arial", 12)).pack()
+                "Adelle", 12)).pack()
 
             # ctime label (human readable)
             self.c_time_label = ttk.Label(self.frame,
@@ -305,7 +316,7 @@ class TimeApplication:
 
             ttk.Label(self.frame,
                       text="\nMove the slider to change the time!\n",
-                      font=("Arial", 12)).pack()
+                      font=("Adelle", 12)).pack()
 
             # Slider for interactivity
             self.slider = ttk.Scale(
@@ -373,24 +384,24 @@ class TimeApplication:
             self.clear()
 
             ttk.Label(self.frame, text="What is binary?",
-                      font=("Arial", 25)).pack()
+                      font=("Amsi Pro Narw", 25)).pack()
             ttk.Label(self.frame, text="How can computers count with just 0 and 1?\n", font=(
-                "Arial", 16)).pack()
+                "Adelle", 16)).pack()
 
-            # ttk.Label(self.frame, text="", font=("Arial", 12)).pack()
+            # ttk.Label(self.frame, text="", font=("Adelle", 12)).pack()
 
             ttk.Label(self.frame, text="In real life, we have 10 numbers: 0, 1, 2, 3, 4, 5, 6, 7, 8, and 9.", font=(
-                "Arial", 12)).pack()
+                "Adelle", 12)).pack()
             ttk.Label(self.frame, text="But computers only have 0 and 1. This way of counting is called binary.", font=(
-                "Arial", 12)).pack()
+                "Adelle", 12)).pack()
 
             ttk.Label(self.frame, text="\nWe use multiple numbers to make bigger ones (like 12, which is made of a 1 and a 2).", font=(
-                "Arial", 12)).pack()
+                "Adelle", 12)).pack()
             ttk.Label(self.frame, text="Computers combine their numbers the same way! A computer would say '10' for 2, or '1100' for 12.", font=(
-                "Arial", 12)).pack()
+                "Adelle", 12)).pack()
 
             ttk.Label(self.frame, text="\nYou could write a number as a math problem like this:", font=(
-                "Arial", 12)).pack()
+                "Adelle", 12)).pack()
 
             ttk.Label(self.frame, text="\n2,345:",
                       font=("Monospace", 12)).pack()
@@ -406,7 +417,7 @@ class TimeApplication:
                       ).pack()
 
             ttk.Label(self.frame, text="\nFor us, each digit is ten times larger than the last. In binary, each digit is only two times larger!", font=(
-                "Arial, 12")).pack()
+                "Adelle, 12")).pack()
 
             ttk.Label(self.frame, text="\n0111:",
                       font=("Monospace", 12)).pack()
@@ -422,7 +433,7 @@ class TimeApplication:
                       ).pack()
 
             ttk.Label(self.frame, text="\nNow you know how to count like a computer!\n", font=(
-                "Arial", 12)).pack()
+                "Adelle", 12)).pack()
 
             ttk.Button(self.frame, image=self.next_arrow_photo,
                        command=self.third_screen).pack()
@@ -439,7 +450,7 @@ class TimeApplication:
             self.clear()
 
             ttk.Label(self.frame, text="Here are the first few binary numbers:\n", font=(
-                "Arial", 16)).pack()
+                "Adelle", 16)).pack()
 
             ttk.Label(self.frame, text="0000 0000 | 0       0001 0000 | 16\n" +
                                        "0000 0001 | 1       0001 0001 | 17\n" +
@@ -476,16 +487,16 @@ class TimeApplication:
             self.clear()
 
             ttk.Label(self.frame, text="The 2038 Problem",
-                      font=("Arial", 25)).pack()
+                      font=("Amsi Pro Narw", 25)).pack()
             ttk.Label(self.frame, text="How could 99 + 1 = 0?",
-                      font=("Arial", 16)).pack()
+                      font=("Amsi Pro Narw", 16)).pack()
 
             ttk.Label(self.frame, text="\nWhat is 99 + 1? 100! But what if we only have two digits to write the answer?\n",
-                      font=("Arial", 12)).pack()
+                      font=("Adelle", 12)).pack()
             ttk.Label(self.frame, text="We would have to write 99 + 1 = 00!\n",
-                      font=("Arial", 12)).pack()
+                      font=("Adelle", 12)).pack()
             ttk.Label(self.frame, text="This same thing happens to computers! Here's what a computer sees:", font=(
-                "Arial", 12)).pack()
+                "Adelle", 12)).pack()
 
             ttk.Label(self.frame, text="11111111 + 1 = ?",
                       font=("Monospace", 12)).pack()
@@ -493,11 +504,11 @@ class TimeApplication:
                       font=("Monospace", 12)).pack()
 
             ttk.Label(self.frame, text="\nJust like 99 + 1, the computer needs an extra digit for the answer.",
-                      font=("Arial", 12)).pack()
+                      font=("Adelle", 12)).pack()
             ttk.Label(self.frame, text="\nThis means that a computer might see this as zero!", font=(
-                "Arial", 12)).pack()
+                "Adelle", 12)).pack()
             ttk.Label(self.frame, text="\nThis is called overflow, and it can be a problem for computer time!\n", font=(
-                "Arial", 12)).pack()
+                "Adelle", 12)).pack()
 
             # Binary label
             self.bin_label = ttk.Label(self.frame, font=("Monospace", 16))
@@ -514,9 +525,9 @@ class TimeApplication:
             self.c_time_label.pack()
 
             ttk.Label(self.frame, text="\nThis will make some computers think 2038 is 1901.", font=(
-                "Arial", 12)).pack()
+                "Adelle", 12)).pack()
             ttk.Label(self.frame, text="\nBut don't worry! We have a solution!\n", font=(
-                "Arial", 12)).pack()
+                "Adelle", 12)).pack()
 
             ttk.Button(self.frame, image=self.next_arrow_photo,
                        command=self.fifth_screen).pack()
@@ -551,13 +562,13 @@ class TimeApplication:
 
             # Title, subtitle, subsubtitle
             ttk.Label(self.frame, text="What's New in Computer Time?",
-                      font=("Arial", 25)).pack()
+                      font=("Amsi Pro Narw", 25)).pack()
             ttk.Label(self.frame,
                       text="Nowadays, we use twice as much space to store the time!\n",
-                      font=("Arial", 16)).pack()
+                      font=("Amsi Pro Narw", 16)).pack()
             ttk.Label(self.frame,
                       text="Here's what a computer sees now:\n",
-                      font=("Arial", 12)).pack()
+                      font=("Adelle", 12)).pack()
 
             # Binary label
             self.bin_label = ttk.Label(self.frame, font=("Monospace", 16))
@@ -565,7 +576,7 @@ class TimeApplication:
 
             ttk.Label(self.frame,
                       text="\nIn our numbers, that's:\n",
-                      font=("Arial", 12)).pack()
+                      font=("Adelle", 12)).pack()
 
             # Raw UNIX timecode label
             self.raw_time_label = ttk.Label(self.frame,
@@ -574,10 +585,10 @@ class TimeApplication:
 
             ttk.Label(self.frame,
                       text="\nThis can store 4,294,967,296 times as much!\n",
-                      font=("Arial", 12)).pack()
+                      font=("Adelle", 12)).pack()
             ttk.Label(self.frame,
                       text="This number is about:\n",
-                      font=("Arial", 12)).pack()
+                      font=("Adelle", 12)).pack()
 
             # ctime label (human readable)
             self.c_time_label = ttk.Label(self.frame,
@@ -586,7 +597,7 @@ class TimeApplication:
 
             ttk.Label(self.frame,
                       text="\nMove the slider to change the time!\n",
-                      font=("Arial", 12)).pack()
+                      font=("Adelle", 12)).pack()
 
             # Slider for interactivity
             self.slider = ttk.Scale(
@@ -601,7 +612,7 @@ class TimeApplication:
             self.slider.pack()
 
             ttk.Label(self.frame, text="\nNow overflow won't happen for another 292 billion years!", font=(
-                "Arial", 12)).pack()
+                "Adelle", 12)).pack()
 
             button_holder: ttk.Frame = ttk.Frame(self.frame)
             button_holder.pack(pady=50)

@@ -28,4 +28,9 @@ sudo apt-get install -y python3 python-tk python3-pil.imagetk
 echo "Installing Python packages (this may take a while)..."
 sudo pip install ttkthemes pillow
 
+# Install fonts
+echo "Installing fonts..."
+sudo cp fonts/* ~/.local/share/fonts
+fc-cache -vf
+
 echo "Done."
