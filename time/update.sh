@@ -30,6 +30,7 @@ sudo pip install ttkthemes pillow
 
 # Install fonts
 echo "Installing fonts..."
+sudo mkdir -p ~/.local/share/fonts
 sudo cp fonts/* ~/.local/share/fonts
 fc-cache -vf
 
